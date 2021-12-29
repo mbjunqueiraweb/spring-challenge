@@ -48,12 +48,22 @@ public class ProductService {
             throw new  RuntimeException("erro ao listar produtos");
         }
     }
+
     public BigDecimal newPurchase (List<Product> purchase){
+        try {
+            BigDecimal total = new BigDecimal(0); // provisório
+            for (Product prod :purchase) {
+                Product p = productRepository.getProductsById(prod.getProductId());
+                BigDecimal value = new BigDecimal(String.valueOf(p.getPrice().multiply(new BigDecimal(p.getQuantity()))));
+                total = total.add(value);
+            }
+            return total;
+        }catch (IOException e){
+            throw new RuntimeException("Produto nao encontrado:");
+        }
         // TODO: Tratar as exceções no RepositoryException
         // TODO implementar
 
-        BigDecimal total = new BigDecimal(0); // provisório
-        return total;
     }
     public void newProduct (List<Product> products) {
         // TODO: Tratar as exceções no RepositoryException
