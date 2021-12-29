@@ -17,7 +17,7 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-    public List<Product> listProducts()  {
+    public List<Product> listProducts() {
         // TODO: importar e instanciar o logger
         // TODO: Tratar as exceções no RepositoryException
 
@@ -29,25 +29,25 @@ public class ProductService {
 
             return products;
 
-        }catch (IOException e){
+        } catch (IOException e) {
             // logger.error(e.getMessage());
             // logger.debug("passando no catch");
             throw new RepositoryExceptions("Erro"); //RepositoryException("MSG Customizada: Erro ao gravar o usuario")
         }
     }
 
-   /* public List<Product> listProducts(Product query, int orderBy) {
-        // TODO: Tratar as exceções no RepositoryException
-        // TODO: ordenar
+    public List<Product> listProducts(Product query, int orderBy) {
+        try {
+            List<Product> products = productRepository.getProducts();
+            List<Product> filteredProducts = products.stream()
+                    .filter(p -> resolveQuery(p, query)).collect(Collectors.toList());
+            return filteredProducts;
+        } catch (IOException e) {
+            throw new RuntimeException("mm");
+        }
+    }
 
-        List<Product> products = productRepository.getProducts();
-        List<Product> filteredProducts = products.stream()
-                .filter(p -> resolveQuery(p, query)).collect(Collectors.toList());
-
-        return filteredProducts;
-    }*/
-
-    public BigDecimal newPurchase (List<Product> purchase){
+    public BigDecimal newPurchase(List<Product> purchase) {
         // TODO: Tratar as exceções no RepositoryException
         // TODO implementar
 
@@ -55,16 +55,16 @@ public class ProductService {
         return total;
     }
 
-    public void newProduct (List<Product> products) {
+    public void newProduct(List<Product> products) {
         // TODO: Tratar as exceções no RepositoryException
         // TODO impedir registrar produtos já existentes
 
         try {
-            for (Product product : products){
+            for (Product product : products) {
                 productRepository.newProduct(product);
             }
 
-        }catch (IOException e){
+        } catch (IOException e) {
             throw new RuntimeException("erro no io");
 
         }
@@ -72,11 +72,15 @@ public class ProductService {
     }
 
     private Boolean resolveQuery(Product p, Product query) {
-        return (query.getName() == null || p.getName() == query.getName()) &&
-                (query.getCategory() == null || query.getCategory() == p.getCategory()) &&
-                (query.getBrand() == null || query.getBrand() == p.getBrand()) &&
-                (query.getQuantity() == null || query.getQuantity() == p.getQuantity()) &&
-                (query.getFreeShipping() == null || query.getFreeShipping() == p.getFreeShipping()) &&
-                (query.getPrestige() == null || query.getPrestige() == p.getPrestige());
+        System.out.println(query.getName());
+        System.out.println(p.getName());
+        Boolean q = (query.getName() == null || query.getName().equals(p.getName())) && // true
+                (query.getCategory() == null || query.getCategory().equals(p.getCategory())) && // true
+                (query.getBrand() == null || query.getBrand().equals(p.getBrand())) &&
+                (query.getQuantity() == null || query.getQuantity().equals(p.getQuantity())) &&
+                (query.getFreeShipping() == null || query.getFreeShipping().equals(p.getFreeShipping())) &&
+                (query.getPrestige() == null || query.getPrestige().equals(p.getPrestige()));
+        return q;
     }
+
 }
