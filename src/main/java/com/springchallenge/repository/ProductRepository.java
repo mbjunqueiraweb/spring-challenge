@@ -33,7 +33,6 @@ public class ProductRepository {
     }
 
     public void newProduct(Product product) throws IOException {
-        products = getProducts();
         product.setProductId((long) products.size()+1);
         products.add(product);
         objectMapper.writeValue(new File(PATH), products);
