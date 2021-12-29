@@ -30,6 +30,30 @@ public class ProductController {
         return "pong";
     }
 
+    @GetMapping("/articles")
+    public ResponseEntity query(@RequestParam(required = false) String name,
+                        @RequestParam(required = false) String category,
+                        @RequestParam(required = false) String brand,
+                        @RequestParam(required = false) Integer quantity,
+                        @RequestParam(required = false) BigDecimal price,
+                        @RequestParam(required = false) Boolean freeShipping,
+                        @RequestParam(required = false) String prestige) {
+
+        Product product = Product.builder()
+                .name(name)
+                .category(category)
+                .brand(brand)
+                .quantity(quantity)
+                .price(price)
+                .freeShipping(freeShipping)
+                .prestige(prestige)
+                .build();
+
+        List<Product> list = productService.listProducts(product, 0);
+        return ResponseEntity.ok().body(list);
+    }
+
+
     @PostMapping
     public ResponseEntity<List<ProductDTO>> create(@RequestBody List<Product> produtos){
         products.add(produtos);

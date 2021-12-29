@@ -39,12 +39,15 @@ public class ProductService {
     public List<Product> listProducts(Product query, int orderBy) {
         // TODO: Tratar as exceções no RepositoryException
         // TODO: ordenar
+        try {
+            List<Product> products = productRepository.getProducts();
+            List<Product> filteredProducts = products.stream()
+                    .filter(p -> resolveQuery(p, query)).collect(Collectors.toList());
 
-        List<Product> products = productRepository.getProducts();
-        List<Product> filteredProducts = products.stream()
-                .filter(p -> resolveQuery(p, query)).collect(Collectors.toList());
-
-        return filteredProducts;
+            return filteredProducts;
+        } catch (IOException e) {
+            throw new RuntimeException("mm");
+        }
     }
 
     public BigDecimal newPurchase (List<Product> purchase){
@@ -72,11 +75,16 @@ public class ProductService {
     }
 
     private Boolean resolveQuery(Product p, Product query) {
-        return (query.getName() == null || p.getName() == query.getName()) &&
-                (query.getCategory() == null || query.getCategory() == p.getCategory()) &&
-                (query.getBrand() == null || query.getBrand() == p.getBrand()) &&
-                (query.getQuantity() == null || query.getQuantity() == p.getQuantity()) &&
-                (query.getFreeShipping() == null || query.getFreeShipping() == p.getFreeShipping()) &&
-                (query.getPrestige() == null || query.getPrestige() == p.getPrestige());
+
+        System.out.println(query.getName());
+        System.out.println(p.getName());
+        Boolean q = (query.getName() == null || query.getName().equals(p.getName())) && // true
+                (query.getCategory() == null || query.getCategory().equals(p.getCategory())) && // true
+                (query.getBrand() == null || query.getBrand().equals(p.getBrand())) &&
+                (query.getQuantity() == null || query.getQuantity().equals(p.getQuantity())) &&
+                (query.getFreeShipping() == null || query.getFreeShipping().equals(p.getFreeShipping())) &&
+                (query.getPrestige() == null || query.getPrestige().equals(p.getPrestige()));
+        //System.out.println(q);
+        return q;
     }
 }
