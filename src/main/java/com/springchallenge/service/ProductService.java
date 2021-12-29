@@ -21,15 +21,15 @@ public class ProductService {
         List<Product> products = productRepository.getProducts();
 
         try {
-            ProductRepository.listProducts(Product);
-            logger.debug("product sa");
+            ProductRepository.listProducts(Products);
+            logger.debug("product salve");
 
 
             }catch (IOException e){
             logger.error(e.getMessage());
             logger.debug("passando no catch");
-            throw new RepositoryException("MSG Customizada: Erro ao gravar o usuario")
-    }catch (){
+            throw new RepositoryException("MSG Customizada: Erro ao gravar o usuario");
+    }catch (Exception e){
         throw new RuntimeException("usuario deve ser maior de idade");
     }
         }
