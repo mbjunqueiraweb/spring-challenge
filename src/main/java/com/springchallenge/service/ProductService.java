@@ -1,4 +1,4 @@
-package com.springchallenge.entity.service;
+package com.springchallenge.service;
 
 import com.springchallenge.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
