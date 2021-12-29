@@ -36,7 +36,7 @@ public class ProductService {
         }
     }
 
-    public List<Product> listProducts(Product query, int orderBy) {
+   /* public List<Product> listProducts(Product query, int orderBy) {
         // TODO: Tratar as exceções no RepositoryException
         // TODO: ordenar
 
@@ -45,7 +45,7 @@ public class ProductService {
                 .filter(p -> resolveQuery(p, query)).collect(Collectors.toList());
 
         return filteredProducts;
-    }
+    }*/
 
     public BigDecimal newPurchase (List<Product> purchase){
         // TODO: Tratar as exceções no RepositoryException
