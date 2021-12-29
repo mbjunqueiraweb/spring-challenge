@@ -1,6 +1,7 @@
 package com.springchallenge.service;
 
 import com.springchallenge.entity.Product;
+import com.springchallenge.exceptions.RepositoryExceptions;
 import com.springchallenge.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,52 +17,62 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-    public List<Product> listProducts(){
-        // TODO: definir exceções recebidas e envolver no try catch
-        List<Product> products = productRepository.getProducts();
+    public List<Product> listProducts()  {
+        // TODO: importar e instanciar o logger
+        // TODO: Tratar as exceções no RepositoryException
 
         try {
-            ProductRepository.listProducts(Products);
-            logger.debug("product salve");
 
+            List<Product> products;
+            products = productRepository.getProducts();
+            //logger.debug("product sa");
+            return products;
 
-            }catch (IOException e){
-            logger.error(e.getMessage());
-            logger.debug("passando no catch");
-            throw new RepositoryException("MSG Customizada: Erro ao gravar o usuario");
-    }catch (Exception e){
-        throw new RuntimeException("usuario deve ser maior de idade");
-    }
+        }catch (IOException e){
+            // logger.error(e.getMessage());
+            // logger.debug("passando no catch");
+            throw new RepositoryExceptions("Erro"); //RepositoryException("MSG Customizada: Erro ao gravar o usuario")
         }
-        return products;
     }
 
-    public List<Product> listProducts(Product query, int orderBy){
-        // TODO: definir exceções recebidas e envolver no try catch
-        List<Product> products = productRepository.getProducts();
-
-        List<Product> filteredProducts = products.stream()
-                .filter(p -> resolveQuery(p, query)).collect(Collectors.toList());
-
+    public List<Product> listProducts(Product query, int orderBy) {
+        // TODO: Tratar as exceções no RepositoryException
         // TODO: ordenar
+        try {
+            List<Product> products = productRepository.getProducts();
+            List<Product> filteredProducts = products.stream()
+                    .filter(p -> resolveQuery(p, query)).collect(Collectors.toList());
 
-        return filteredProducts;
+            return filteredProducts;
+        } catch (IOException e) {
+            throw new  RuntimeException("erro ao listar produtos");
+        }
     }
-
     public BigDecimal newPurchase (List<Product> purchase){
-        // TODO: definir exceções recebidas e envolver no try catch
+        // TODO: Tratar as exceções no RepositoryException
         // TODO implementar
 
         BigDecimal total = new BigDecimal(0); // provisório
         return total;
     }
+    public void newProduct (List<Product> products) {
+        // TODO: Tratar as exceções no RepositoryException
+        // TODO impedir registrar produtos já existentes
 
-    public void newProduct (List<Product> product){
-        // TODO: definir exceções recebidas e envolver no try catch
-        // TODO implementar
+        try {
+            for (Product product : products){
+                productRepository.newProduct(product);
+            }
+
+        }catch (IOException e){
+            throw new RuntimeException("erro no io");
+
+        }
+
     }
 
     private Boolean resolveQuery(Product p, Product query) {
+
         return (query.getName() == null || p.getName() == query.getName()) &&
                 (query.getCategory() == null || query.getCategory() == p.getCategory()) &&
                 (query.getBrand() == null || query.getBrand() == p.getBrand()) &&
