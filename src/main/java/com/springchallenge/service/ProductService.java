@@ -1,6 +1,7 @@
 package com.springchallenge.service;
 
 import com.springchallenge.entity.Product;
+import com.springchallenge.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;

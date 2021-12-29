@@ -1,7 +1,10 @@
 package com.springchallenge.repository;
 
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
+@Component
 public class ProductRepository {
 
 //    public List<Produto> getProducts(Long id) {
