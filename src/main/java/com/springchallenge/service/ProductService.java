@@ -4,6 +4,8 @@ import com.springchallenge.entity.Product;
 import com.springchallenge.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +20,19 @@ public class ProductService {
         // TODO: definir exceções recebidas e envolver no try catch
         List<Product> products = productRepository.getProducts();
 
+        try {
+            ProductRepository.listProducts(Product);
+            logger.debug("product sa");
+
+
+            }catch (IOException e){
+            logger.error(e.getMessage());
+            logger.debug("passando no catch");
+            throw new RepositoryException("MSG Customizada: Erro ao gravar o usuario")
+    }catch (){
+        throw new RuntimeException("usuario deve ser maior de idade");
+    }
+        }
         return products;
     }
 
@@ -29,6 +44,7 @@ public class ProductService {
                 .filter(p -> resolveQuery(p, query)).collect(Collectors.toList());
 
         // TODO: ordenar
+
         return filteredProducts;
     }
 
