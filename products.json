@@ -1,109 +1,19 @@
 [ {
   "productId" : 1,
-  "name" : "Serra de Bancada",
-  "category" : "Ferramentas",
-  "brand" : "FORTGPRO",
-  "quantity" : 5,
-  "price" : 1800,
+  "name" : "Iphone 13",
+  "category" : "cel phone",
+  "brand" : "Apple",
+  "quantity" : 10,
+  "price" : 13.000,
   "freeShipping" : true,
-  "prestige" : "****"
+  "prestige" : "*****"
 }, {
   "productId" : 2,
-  "name" : "Furadeira",
-  "category" : "Ferramentas",
-  "brand" : "Black & Decker",
-  "quantity" : 7,
-  "price" : 500,
-  "freeShipping" : true,
-  "prestige" : "****"
-}, {
-  "productId" : 3,
-  "name" : "Soldadora",
-  "category" : "Ferramentas",
-  "brand" : "Black & Decker",
+  "name" : "Iphone 12",
+  "category" : "cel phone",
+  "brand" : "Apple",
   "quantity" : 10,
-  "price" : 350,
-  "freeShipping" : true,
-  "prestige" : "***"
-}, {
-  "productId" : 4,
-  "name" : "Chuteira",
-  "category" : "Esportes",
-  "brand" : "Adidas",
-  "quantity" : 6,
-  "price" : 235,
-  "freeShipping" : true,
-  "prestige" : "*****"
-}, {
-  "productId" : 5,
-  "name" : "Mini Cama Elastica",
-  "category" : "Esportes",
-  "brand" : "Starboard",
-  "quantity" : 4,
-  "price" : 183,
-  "freeShipping" : true,
-  "prestige" : "*****"
-}, {
-  "productId" : 6,
-  "name" : "Camiseta",
-  "category" : "Esportes",
-  "brand" : "Topper",
-  "quantity" : 2,
-  "price" : 80,
-  "freeShipping" : false,
-  "prestige" : "***"
-}, {
-  "productId" : 7,
-  "name" : "Redmi Note 9",
-  "category" : "Celulares",
-  "brand" : "Xiaomi",
-  "quantity" : 15,
-  "price" : 2800,
-  "freeShipping" : true,
-  "prestige" : "****"
-}, {
-  "productId" : 8,
-  "name" : "Smartwatch",
-  "category" : "Celulares",
-  "brand" : "Noga",
-  "quantity" : 20,
-  "price" : 1200,
+  "price" : 13.00,
   "freeShipping" : false,
   "prestige" : "**"
-}, {
-  "productId" : 9,
-  "name" : "Camisa",
-  "category" : "Roupas",
-  "brand" : "Fila",
-  "quantity" : 2,
-  "price" : 79,
-  "freeShipping" : false,
-  "prestige" : "***"
-}, {
-  "productId" : 10,
-  "name" : "Calças",
-  "category" : "Roupas",
-  "brand" : "Oakley",
-  "quantity" : 6,
-  "price" : 73,
-  "freeShipping" : false,
-  "prestige" : "***"
-}, {
-  "productId" : 11,
-  "name" : "Meias",
-  "category" : "Roupas",
-  "brand" : "Gonew",
-  "quantity" : 8,
-  "price" : 10,
-  "freeShipping" : false,
-  "prestige" : "*"
-}, {
-  "productId" : 12,
-  "name" : "Shorts",
-  "category" : "Roupas",
-  "brand" : "Lacoste",
-  "quantity" : 9,
-  "price" : 275,
-  "freeShipping" : true,
-  "prestige" : "***"
 } ]
