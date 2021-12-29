@@ -21,9 +21,15 @@ public class ProductController {
 
 
     @PostMapping
-    public ResponseEntity<List<ProductDTO>> create(@RequestBody List<Product> produtos){
-        List<ProductDTO> res =   ProductDTO.convertToDTO(produtos);
-        return ResponseEntity.ok().body(res);
+    public ResponseEntity create(@RequestBody List<Product> produtos)  {
+        try {
+            productService.newProduct(produtos);
+            List<ProductDTO> res =   ProductDTO.convertToDTO(produtos);
+            return ResponseEntity.ok().body(res);
+
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(produtos);
+        }
     }
 
 

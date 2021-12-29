@@ -3,6 +3,7 @@ package com.springchallenge.repository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.springchallenge.entity.Product;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Component
 public class ProductRepository {
     public List<Product> products = new ArrayList<Product>();
     private ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
@@ -31,7 +33,6 @@ public class ProductRepository {
     }
 
     public void newProduct(Product product) throws IOException {
-        products = getProducts();
         product.setProductId((long) products.size()+1);
         products.add(product);
         objectMapper.writeValue(new File(PATH), products);
