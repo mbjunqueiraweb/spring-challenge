@@ -1,5 +1,6 @@
 package com.springchallenge.controller.advice;
 
+import com.springchallenge.exceptions.BadRequestExceptions;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,6 +22,12 @@ public class PersistenceExceptionsAdvice {
     protected ResponseEntity<Object> handlePersistencia(RepositoryExceptions e, WebRequest request) {
         String bodyOfResponse = e.getMessage();
         return ResponseEntity.internalServerError().body(bodyOfResponse);
+    }
+
+    @ExceptionHandler(value = BadRequestExceptions.class)
+    protected ResponseEntity<Object> handlePersistencia(BadRequestExceptions e, WebRequest request) {
+        String bodyOfResponse = e.getMessage();
+        return ResponseEntity.badRequest().body(bodyOfResponse);
     }
 
     @ExceptionHandler(value = NullPointerException.class)
