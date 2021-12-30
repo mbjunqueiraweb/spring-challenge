@@ -50,4 +50,4 @@ paramOrder Description
     
 ``` /products/articles?name=productName&freeShipping=true```
 
-#### [Collection para Postman](https://raw.githubusercontent.com/matheussalencar/spring-challenge/master/Spring%20Challenge.postman_collection.json)
+#### [Collection para Postman](https://github.com/matheussalencar/spring-challenge/blob/master/Spring%20Challenge.postman_collection.json)
