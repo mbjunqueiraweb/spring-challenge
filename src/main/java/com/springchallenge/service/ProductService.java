@@ -17,7 +17,7 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-    public List<Product> listProducts()  {
+    public List<Product> listProducts() {
         // TODO: importar e instanciar o logger
         // TODO: Tratar as exceções no RepositoryException
 
@@ -28,7 +28,7 @@ public class ProductService {
             //logger.debug("product sa");
             return products;
 
-        }catch (IOException e){
+        } catch (IOException e) {
             // logger.error(e.getMessage());
             // logger.debug("passando no catch");
             throw new RepositoryExceptions("Erro"); //RepositoryException("MSG Customizada: Erro ao gravar o usuario")
@@ -36,13 +36,10 @@ public class ProductService {
     }
 
     public List<Product> listProducts(Product query, int orderBy) {
-        // TODO: Tratar as exceções no RepositoryException
-        // TODO: ordenar
         try {
             List<Product> products = productRepository.getProducts();
             List<Product> filteredProducts = products.stream()
                     .filter(p -> resolveQuery(p, query)).collect(Collectors.toList());
-
             return filteredProducts;
         } catch (IOException e) {
             throw new  RuntimeException("erro ao listar produtos");
@@ -61,20 +58,24 @@ public class ProductService {
         }catch (IOException e){
             throw new RuntimeException("Produto nao encontrado:");
         }
-        // TODO: Tratar as exceções no RepositoryException
-        // TODO implementar
-
+            return filteredProducts;
+        } catch (IOException e) {
+            throw new RuntimeException("mm");
+        }
     }
-    public void newProduct (List<Product> products) {
-        // TODO: Tratar as exceções no RepositoryException
-        // TODO impedir registrar produtos já existentes
+
+
+
+
+    public void newProduct(List<Product> products) {
+
 
         try {
-            for (Product product : products){
+            for (Product product : products) {
                 productRepository.newProduct(product);
             }
 
-        }catch (IOException e){
+        } catch (IOException e) {
             throw new RuntimeException("erro no io");
 
         }
@@ -82,12 +83,15 @@ public class ProductService {
     }
 
     private Boolean resolveQuery(Product p, Product query) {
-
-        return (query.getName() == null || p.getName() == query.getName()) &&
-                (query.getCategory() == null || query.getCategory() == p.getCategory()) &&
-                (query.getBrand() == null || query.getBrand() == p.getBrand()) &&
-                (query.getQuantity() == null || query.getQuantity() == p.getQuantity()) &&
-                (query.getFreeShipping() == null || query.getFreeShipping() == p.getFreeShipping()) &&
-                (query.getPrestige() == null || query.getPrestige() == p.getPrestige());
+        System.out.println(query.getName());
+        System.out.println(p.getName());
+        Boolean q = (query.getName() == null || query.getName().equals(p.getName())) && // true
+                (query.getCategory() == null || query.getCategory().equals(p.getCategory())) && // true
+                (query.getBrand() == null || query.getBrand().equals(p.getBrand())) &&
+                (query.getQuantity() == null || query.getQuantity().equals(p.getQuantity())) &&
+                (query.getFreeShipping() == null || query.getFreeShipping().equals(p.getFreeShipping())) &&
+                (query.getPrestige() == null || query.getPrestige().equals(p.getPrestige()));
+        return q;
     }
+
 }
