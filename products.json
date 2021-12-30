@@ -48,7 +48,7 @@
   "name" : "Camiseta",
   "category" : "Esportes",
   "brand" : "Topper",
-  "quantity" : 2,
+  "quantity" : 1,
   "price" : 80,
   "freeShipping" : false,
   "prestige" : "***"
