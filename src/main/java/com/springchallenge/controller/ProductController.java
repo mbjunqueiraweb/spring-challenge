@@ -22,7 +22,7 @@ public class ProductController {
 
     @Autowired
     ProductService productService;
-    ProductRepository productRepository;
+
     @GetMapping("/ping")
     public String meuMetodo() {
         return "pong";
@@ -41,7 +41,8 @@ public class ProductController {
                                 @RequestParam(required = false) Integer quantity,
                                 @RequestParam(required = false) BigDecimal price,
                                 @RequestParam(required = false) Boolean freeShipping,
-                                @RequestParam(required = false) String prestige) {
+                                @RequestParam(required = false) String prestige,
+                                @RequestParam(required = false) int order) {
 
         Product product = Product.builder()
                 .name(name)
@@ -53,10 +54,9 @@ public class ProductController {
                 .prestige(prestige)
                 .build();
 
-        List<Product> list = productService.listProducts(product, 0);
+        List<Product> list = productService.listProducts(product, order);
         return ResponseEntity.ok().body(list);
     }
-
 
     @PostMapping
     public ResponseEntity<List<ProductDTO>> create(@RequestBody List<Product> produtos){
