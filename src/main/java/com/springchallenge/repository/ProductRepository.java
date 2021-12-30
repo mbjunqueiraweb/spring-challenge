@@ -3,6 +3,7 @@ package com.springchallenge.repository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.springchallenge.entity.Product;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,12 +12,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
 public class ProductRepository {
     public List<Product> products = new ArrayList<Product>();
     private ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
     private final String PATH = "products.json";
 
-    public List<Product> getProducts() throws IOException{
+    @Autowired
+    public static List<Product> getProducts() throws IOException{
         File file = new File(PATH);
         FileInputStream is = new FileInputStream(file);
         products = Arrays.asList(objectMapper.readValue(is, Product[].class));

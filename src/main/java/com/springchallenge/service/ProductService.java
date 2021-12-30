@@ -21,7 +21,7 @@ public class ProductService {
         List<Product> products = productRepository.getProducts();
 
         try {
-            ProductRepository.listProducts(Product);
+            ProductRepository.;
             logger.debug("product sa");
 
 
@@ -36,9 +36,9 @@ public class ProductService {
         return products;
     }
 
-    public List<Product> listProducts(Product query, int orderBy){
+    public List<Product> listProducts(Product query, int orderBy) throws IOException {
         // TODO: definir exceções recebidas e envolver no try catch
-        List<Product> products = productRepository.getProducts();
+        List<Product> products = ProductRepository.getProducts();
 
         List<Product> filteredProducts = products.stream()
                 .filter(p -> resolveQuery(p, query)).collect(Collectors.toList());
