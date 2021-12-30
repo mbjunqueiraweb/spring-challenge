@@ -22,11 +22,10 @@ public class ProductService {
         // TODO: Tratar as exceções no RepositoryException
 
         try {
+
             List<Product> products;
             products = productRepository.getProducts();
-
             //logger.debug("product sa");
-
             return products;
 
         } catch (IOException e) {
@@ -43,21 +42,33 @@ public class ProductService {
                     .filter(p -> resolveQuery(p, query)).collect(Collectors.toList());
             return filteredProducts;
         } catch (IOException e) {
+            throw new  RuntimeException("erro ao listar produtos");
+        }
+    }
+
+    public BigDecimal newPurchase (List<Product> purchase){
+        try {
+            BigDecimal total = new BigDecimal(0); // provisório
+            for (Product prod :purchase) {
+                Product p = productRepository.getProductsById(prod.getProductId());
+                BigDecimal value = new BigDecimal(String.valueOf(p.getPrice().multiply(new BigDecimal(p.getQuantity()))));
+                total = total.add(value);
+            }
+            return total;
+        }catch (IOException e){
+            throw new RuntimeException("Produto nao encontrado:");
+        }
+            return filteredProducts;
+        } catch (IOException e) {
             throw new RuntimeException("mm");
         }
     }
 
-    public BigDecimal newPurchase(List<Product> purchase) {
-        // TODO: Tratar as exceções no RepositoryException
-        // TODO implementar
 
-        BigDecimal total = new BigDecimal(0); // provisório
-        return total;
-    }
+
 
     public void newProduct(List<Product> products) {
-        // TODO: Tratar as exceções no RepositoryException
-        // TODO impedir registrar produtos já existentes
+
 
         try {
             for (Product product : products) {
