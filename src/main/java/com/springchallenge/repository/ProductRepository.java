@@ -32,6 +32,7 @@ public class ProductRepository {
         return product;
     }
 
+
     public void newProduct(Product product) throws IOException {
         product.setProductId((long) products.size()+1);
         products.add(product);

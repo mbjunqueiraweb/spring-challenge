@@ -3,11 +3,13 @@ package com.springchallenge.controller;
 import com.springchallenge.dto.ProductDTO;
 import com.springchallenge.entity.Product;
 import com.springchallenge.entity.Ticket;
+import com.springchallenge.repository.ProductRepository;
 import com.springchallenge.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,20 +26,26 @@ public class ProductController {
 
     @Autowired
     ProductService productService;
-
+    ProductRepository productRepository;
     @GetMapping("/ping")
     public String meuMetodo() {
         return "pong";
     }
 
+
+    @GetMapping()
+    public List<Product> getProduct() {
+        return productService.listProducts();
+    }
+
     @GetMapping("/articles")
     public ResponseEntity query(@RequestParam(required = false) String name,
-                        @RequestParam(required = false) String category,
-                        @RequestParam(required = false) String brand,
-                        @RequestParam(required = false) Integer quantity,
-                        @RequestParam(required = false) BigDecimal price,
-                        @RequestParam(required = false) Boolean freeShipping,
-                        @RequestParam(required = false) String prestige) {
+                                @RequestParam(required = false) String category,
+                                @RequestParam(required = false) String brand,
+                                @RequestParam(required = false) Integer quantity,
+                                @RequestParam(required = false) BigDecimal price,
+                                @RequestParam(required = false) Boolean freeShipping,
+                                @RequestParam(required = false) String prestige) {
 
         Product product = Product.builder()
                 .name(name)
@@ -56,7 +64,8 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<List<ProductDTO>> create(@RequestBody List<Product> produtos){
-        products.add(produtos);
+        //products.add(produtos);
+        productService.newProduct(produtos);
         List<ProductDTO> res = ProductDTO.convertToDTO(produtos);
         return ResponseEntity.ok().body(res);
     }

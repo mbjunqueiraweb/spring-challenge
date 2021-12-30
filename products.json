@@ -68,8 +68,8 @@
   "brand" : "Noga",
   "quantity" : 20,
   "price" : 1200,
-  "freeShipping" : false,
-  "prestige" : "**"
+  "freeShipping" : null,
+  "prestige" : null
 }, {
   "productId" : 9,
   "name" : "Camisa",
