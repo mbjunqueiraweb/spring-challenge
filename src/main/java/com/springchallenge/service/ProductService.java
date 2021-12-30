@@ -61,7 +61,7 @@ public class ProductService {
     public void newProduct (List<Product> products) {
         // TODO: Tratar as exceções no RepositoryException
         // TODO impedir registrar produtos já existentes
-
+BigDecimal v = new BigDecimal(1).
         try {
             for (Product product : products){
                 productRepository.newProduct(product);
