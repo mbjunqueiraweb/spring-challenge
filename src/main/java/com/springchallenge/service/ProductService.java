@@ -85,9 +85,12 @@ public class ProductService {
 
             return ticket;
 
-        }catch (IOException e) {
-            throw new RuntimeException("Produto nao encontrado:");
+        }catch (NullPointerException e) {
+            throw new NullPointerException("Id de produto inválido");
+        }catch (IOException e){
+            throw new RuntimeException(e);
         }
+
     }
 
     public void newProduct(List<Product> products) {

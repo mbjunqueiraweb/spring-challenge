@@ -21,7 +21,7 @@ public class PersistenceExceptionsAdvice {
     @ExceptionHandler(value = NullPointerException.class)
     protected ResponseEntity<Object> handleNullPointer(NullPointerException e, WebRequest request) {
         String bodyOfResponse = e.getMessage();
-        return ResponseEntity.internalServerError().body(bodyOfResponse);
+        return ResponseEntity.badRequest().body(bodyOfResponse);
     }
 
     @ExceptionHandler(value = ArithmeticException.class)
@@ -29,4 +29,5 @@ public class PersistenceExceptionsAdvice {
         String bodyOfResponse = e.getMessage();
         return ResponseEntity.badRequest().body(bodyOfResponse);
     }
+
 }
