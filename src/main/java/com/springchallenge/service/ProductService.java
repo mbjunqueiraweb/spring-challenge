@@ -20,8 +20,6 @@ public class ProductService {
     private ProductRepository productRepository;
 
     public List<Product> listProducts() {
-        // TODO: importar e instanciar o logger
-        // TODO: Tratar as exceções no RepositoryException
 
         try {
 
@@ -38,12 +36,31 @@ public class ProductService {
     }
 
     public List<Product> listProducts(Product query, int orderBy) {
-        // TODO: Tratar as exceções no RepositoryException
-        // TODO: ordenar
+
         try {
             List<Product> products = productRepository.getProducts();
             List<Product> filteredProducts = products.stream()
                     .filter(p -> resolveQuery(p, query)).collect(Collectors.toList());
+
+            switch (orderBy){
+
+                case 0:
+                    filteredProducts = filteredProducts.stream().sorted((p1, p2) -> p1.getName().compareTo(p2.getName())).collect(Collectors.toList());
+                    break;
+
+                case 1:
+                    filteredProducts = filteredProducts.stream().sorted((p1, p2) -> p2.getName().compareTo(p1.getName())).collect(Collectors.toList());
+                    break;
+
+                case 2:
+                    filteredProducts = filteredProducts.stream().sorted((p1, p2) -> p1.getPrice().compareTo(p2.getPrice())).collect(Collectors.toList());
+                    break;
+
+                case 3:
+                    filteredProducts = filteredProducts.stream().sorted((p1, p2) -> p2.getPrice().compareTo(p1.getPrice())).collect(Collectors.toList());
+                    break;
+            }
+
             return filteredProducts;
         } catch (IOException e) {
             throw new RuntimeException("mm");
@@ -73,8 +90,6 @@ public class ProductService {
         }
     }
 
-
-
     public void newProduct(List<Product> products) {
 
         try {
@@ -86,7 +101,6 @@ public class ProductService {
             throw new RuntimeException("erro no io");
 
         }
-
     }
 
     private Boolean resolveQuery(Product p, Product query) {
@@ -99,5 +113,4 @@ public class ProductService {
                 (query.getPrestige() == null || query.getPrestige().equals(p.getPrestige()));
         return q;
     }
-
 }
