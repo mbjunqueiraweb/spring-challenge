@@ -20,10 +20,6 @@ import java.util.stream.Collectors;
 @RequestMapping("/products")
 public class ProductController {
 
-    private List<List<Product>> products = new ArrayList<List<Product>>();
-
-    private List<Product> filterList = new ArrayList<Product>();
-
     @Autowired
     ProductService productService;
     ProductRepository productRepository;
@@ -64,54 +60,16 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<List<ProductDTO>> create(@RequestBody List<Product> produtos){
-        //products.add(produtos);
         productService.newProduct(produtos);
         List<ProductDTO> res = ProductDTO.convertToDTO(produtos);
         return ResponseEntity.ok().body(res);
     }
 
-    public Product getProduct(Long productId){
-        for(int i=0; i<products.size(); i++){
-            for(int j=0; j<products.get(i).size(); j++){
-                if(products.get(i).get(j).getProductId().equals(productId)){
-                    return products.get(i).get(j);
-                }
-                System.out.println(products.get(i).get(j));
-            }
-        }
-        return new Product();
-    }
-
     @PostMapping("/purchaseRequest")
-    public BigDecimal purchaseRequest(@RequestBody List<Product> produtos){
-     /*   BigDecimal total = new BigDecimal(0.0);
-        for(int i=0; i<produtos.size(); i++){
-            total = total.add(produtos.get(i).getPrice().multiply(BigDecimal.valueOf(produtos.get(i).getQuantity())));
-        }
-        List<Long> lista = produtos.stream().map(p -> p.getProductId()).collect(Collectors.toList());
+    public ResponseEntity<Ticket> purchaseRequest(@RequestBody List<Product> produtos){
+        Ticket t = productService.newPurchase(produtos);
+        return ResponseEntity.ok(t);
 
-        for(int j=0; j< lista.size(); j++){
-            Product prod = getProduct(lista.get(j));
-            filterList.add(prod);
-        }
-        Ticket ticket = new Ticket();
-        ticket.setId(1L);
-        ticket.setArticles(filterList);
-        ticket.setTotal(total);
-
-        return ResponseEntity.ok(ticket);
-
-        */
-
-      return  productService.newPurchase(produtos);
-      /*
-        Ticket ticket = new Ticket();
-        ticket.setId(1L);
-        ticket.setArticles(filterList);
-        ticket.setTotal(total);
-
-        return ResponseEntity.ok(ticket);
-        */
     }
 
 }

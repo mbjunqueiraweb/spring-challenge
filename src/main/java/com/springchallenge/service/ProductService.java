@@ -1,6 +1,7 @@
 package com.springchallenge.service;
 
 import com.springchallenge.entity.Product;
+import com.springchallenge.entity.Ticket;
 import com.springchallenge.exceptions.RepositoryExceptions;
 import com.springchallenge.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,15 +50,24 @@ public class ProductService {
         }
     }
 
-    public BigDecimal newPurchase (List<Product> purchase){
+    public Ticket newPurchase (List<Product> purchase){
         try {
-            BigDecimal total = new BigDecimal(0); // provisório
+            BigDecimal total = new BigDecimal(0);
+            Ticket ticket = new Ticket();
+            List<Product> list = new ArrayList<Product>();
             for (Product prod :purchase) {
                 Product p = productRepository.getProductsById(prod.getProductId());
-                BigDecimal value = new BigDecimal(String.valueOf(p.getPrice().multiply(new BigDecimal(prod.getQuantity()))));
+                p.setQuantity(prod.getQuantity());
+                BigDecimal value = new BigDecimal(String.valueOf(p.getPrice().multiply(new BigDecimal(p.getQuantity()))));
                 total = total.add(value);
+                list.add(p);
             }
-            return total;
+
+            ticket.setArticles(list);
+            ticket.setTotal(total);
+
+            return ticket;
+
         }catch (IOException e) {
             throw new RuntimeException("Produto nao encontrado:");
         }
