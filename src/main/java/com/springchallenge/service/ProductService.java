@@ -36,10 +36,18 @@ public class ProductService {
     }
 
     public List<Product> listProducts(Product query, int orderBy) {
+        // TODO: Tratar as exceções no RepositoryException
+        // TODO: ordenar
         try {
             List<Product> products = productRepository.getProducts();
             List<Product> filteredProducts = products.stream()
                     .filter(p -> resolveQuery(p, query)).collect(Collectors.toList());
+
+
+            return filteredProducts;
+        } catch (IOException e) {
+            throw new RuntimeException("mm");
+
             return filteredProducts;
         } catch (IOException e) {
             throw new  RuntimeException("erro ao listar produtos");
@@ -66,9 +74,7 @@ public class ProductService {
 
 
 
-
     public void newProduct(List<Product> products) {
-
 
         try {
             for (Product product : products) {
@@ -83,6 +89,7 @@ public class ProductService {
     }
 
     private Boolean resolveQuery(Product p, Product query) {
+
         System.out.println(query.getName());
         System.out.println(p.getName());
         Boolean q = (query.getName() == null || query.getName().equals(p.getName())) && // true
