@@ -3,19 +3,21 @@ package com.springchallenge.controller;
 import com.springchallenge.dto.ProductDTO;
 import com.springchallenge.entity.Product;
 import com.springchallenge.entity.Ticket;
-import com.springchallenge.repository.ProductRepository;
 import com.springchallenge.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
+/**
+ * Classe para controle dos endpoints de Products
+ *
+ * @author Meli - Wave 4 - Grupo 11
+ *
+ * @version 0.0.1
+ *
+ */
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -24,10 +26,9 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping("/ping")
-    public String meuMetodo() {
+    public String ping() {
         return "pong";
     }
-
 
     @GetMapping()
     public List<Product> getProduct() {
@@ -42,7 +43,7 @@ public class ProductController {
                                 @RequestParam(required = false) BigDecimal price,
                                 @RequestParam(required = false) Boolean freeShipping,
                                 @RequestParam(required = false) String prestige,
-                                @RequestParam(required = false) int order) {
+                                @RequestParam(defaultValue = "") String order) {
 
         Product product = Product.builder()
                 .name(name)
@@ -59,17 +60,15 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<List<ProductDTO>> create(@RequestBody List<Product> produtos){
-        productService.newProduct(produtos);
-        List<ProductDTO> res = ProductDTO.convertToDTO(produtos);
-        return ResponseEntity.ok().body(res);
+    public ResponseEntity<List<ProductDTO>> create(@RequestBody List<Product> products){
+        productService.newProduct(products);
+        List<ProductDTO> productsListDTO = ProductDTO.convertToDTO(products);
+        return ResponseEntity.ok().body(productsListDTO);
     }
 
     @PostMapping("/purchaseRequest")
-    public ResponseEntity<Ticket> purchaseRequest(@RequestBody List<Product> produtos){
-        Ticket t = productService.newPurchase(produtos);
-        return ResponseEntity.ok(t);
-
+    public ResponseEntity<Ticket> purchaseRequest(@RequestBody List<Product> products){
+        Ticket ticket = productService.newPurchase(products);
+        return ResponseEntity.ok(ticket);
     }
-
 }

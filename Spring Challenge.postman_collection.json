@@ -1,0 +1,236 @@
+{
+	"info": {
+		"_postman_id": "cd28f73e-389d-405c-8b49-ed45d2d49d34",
+		"name": "Spring Challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Cadastrar produto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"productId\": 1,\n        \"name\": \"Serra de Bancada\",\n        \"category\": \"Ferramentas\",\n        \"brand\": \"FORTGPRO\",\n        \"quantity\": 5,\n        \"price\": 1800,\n        \"freeShipping\": true,\n        \"prestige\": \"****\"\n    },\n    {\n        \"productId\": 2,\n        \"name\": \"Furadeira\",\n        \"category\": \"Ferramentas\",\n        \"brand\": \"Black & Decker\",\n        \"quantity\": 7,\n        \"price\": 500,\n        \"freeShipping\": true,\n        \"prestige\": \"****\"\n    },\n    {\n        \"productId\": 3,\n        \"name\": \"Soldadora\",\n        \"category\": \"Ferramentas\",\n        \"brand\": \"Black & Decker\",\n        \"quantity\": 10,\n        \"price\": 350,\n        \"freeShipping\": true,\n        \"prestige\": \"***\"\n    },\n    {\n        \"productId\": 4,\n        \"name\": \"Chuteira\",\n        \"category\": \"Esportes\",\n        \"brand\": \"Adidas\",\n        \"quantity\": 6,\n        \"price\": 235,\n        \"freeShipping\": true,\n        \"prestige\": \"*****\"\n    },\n    {\n        \"productId\": 5,\n        \"name\": \"Mini Cama Elastica\",\n        \"category\": \"Esportes\",\n        \"brand\": \"Starboard\",\n        \"quantity\": 4,\n        \"price\": 183,\n        \"freeShipping\": true,\n        \"prestige\": \"*****\"\n    },\n    {\n        \"productId\": 6,\n        \"name\": \"Camiseta\",\n        \"category\": \"Esportes\",\n        \"brand\": \"Topper\",\n        \"quantity\": 2,\n        \"price\": 80,\n        \"freeShipping\": false,\n        \"prestige\": \"***\"\n    },\n    {\n        \"productId\": 7,\n        \"name\": \"Redmi Note 9\",\n        \"category\": \"Celulares\",\n        \"brand\": \"Xiaomi\",\n        \"quantity\": 15,\n        \"price\": 2800,\n        \"freeShipping\": true,\n        \"prestige\": \"****\"\n    },\n    {\n        \"productId\": 8,\n        \"name\": \"Smartwatch\",\n        \"category\": \"Celulares\",\n        \"brand\": \"Noga\",\n        \"quantity\": 20,\n        \"price\": 1200,\n        \"freeShipping\": false,\n        \"prestige\": \"**\"\n    },\n    {\n        \"productId\": 9,\n        \"name\": \"Camisa\",\n        \"category\": \"Roupas\",\n        \"brand\": \"Fila\",\n        \"quantity\": 2,\n        \"price\": 79,\n        \"freeShipping\": false,\n        \"prestige\": \"***\"\n    },\n    {\n        \"productId\": 10,\n        \"name\": \"Calças\",\n        \"category\": \"Roupas\",\n        \"brand\": \"Oakley\",\n        \"quantity\": 6,\n        \"price\": 73,\n        \"freeShipping\": false,\n        \"prestige\": \"***\"\n    },\n    {\n        \"productId\": 11,\n        \"name\": \"Meias\",\n        \"category\": \"Roupas\",\n        \"brand\": \"Gonew\",\n        \"quantity\": 8,\n        \"price\": 10,\n        \"freeShipping\": false,\n        \"prestige\": \"*\"\n    },\n    {\n        \"productId\": 12,\n        \"name\": \"Shorts\",\n        \"category\": \"Roupas\",\n        \"brand\": \"Lacoste\",\n        \"quantity\": 9,\n        \"price\": 275,\n        \"freeShipping\": true,\n        \"prestige\": \"***\"\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar com filtros exemplo 1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/articles?name=Furadeira",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"articles"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Furadeira"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar com filtros exemplo 2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/articles?category=Roupas&freeShipping=false&order=0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"articles"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "Roupas"
+						},
+						{
+							"key": "freeShipping",
+							"value": "false"
+						},
+						{
+							"key": "order",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar com filtros exemplo 3",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/articles?brand=Black %26 Decker&order=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"articles"
+					],
+					"query": [
+						{
+							"key": "brand",
+							"value": "Black %26 Decker"
+						},
+						{
+							"key": "order",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar com filtros exemplo 4",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/articles?quantity=6&order=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"articles"
+					],
+					"query": [
+						{
+							"key": "quantity",
+							"value": "6"
+						},
+						{
+							"key": "order",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar com filtros exemplo 5",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/articles?freeShipping=true&order=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"articles"
+					],
+					"query": [
+						{
+							"key": "freeShipping",
+							"value": "true"
+						},
+						{
+							"key": "order",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Nova compra",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[ \n        {\n  \"productId\": 1,\n  \"name\": \"Serra de bancada\",\n  \"quantity\": 2\n\n},\n        {\n  \"productId\": 2,\n  \"name\": \"Furadeira\",\n  \"quantity\": 1\n}\n    ]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/products/purchaseRequest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"purchaseRequest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar todos os produtos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
