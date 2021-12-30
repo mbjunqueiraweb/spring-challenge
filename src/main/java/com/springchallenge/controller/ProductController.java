@@ -83,8 +83,8 @@ public class ProductController {
     }
 
     @PostMapping("/purchaseRequest")
-    public ResponseEntity<Ticket> purchaseRequest(@RequestBody List<Product> produtos){
-        BigDecimal total = new BigDecimal(0.0);
+    public BigDecimal purchaseRequest(@RequestBody List<Product> produtos){
+     /*   BigDecimal total = new BigDecimal(0.0);
         for(int i=0; i<produtos.size(); i++){
             total = total.add(produtos.get(i).getPrice().multiply(BigDecimal.valueOf(produtos.get(i).getQuantity())));
         }
@@ -100,6 +100,18 @@ public class ProductController {
         ticket.setTotal(total);
 
         return ResponseEntity.ok(ticket);
+
+        */
+
+      return  productService.newPurchase(produtos);
+      /*
+        Ticket ticket = new Ticket();
+        ticket.setId(1L);
+        ticket.setArticles(filterList);
+        ticket.setTotal(total);
+
+        return ResponseEntity.ok(ticket);
+        */
     }
 
 }

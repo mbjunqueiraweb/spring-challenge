@@ -42,15 +42,9 @@ public class ProductService {
             List<Product> products = productRepository.getProducts();
             List<Product> filteredProducts = products.stream()
                     .filter(p -> resolveQuery(p, query)).collect(Collectors.toList());
-
-
             return filteredProducts;
         } catch (IOException e) {
             throw new RuntimeException("mm");
-
-            return filteredProducts;
-        } catch (IOException e) {
-            throw new  RuntimeException("erro ao listar produtos");
         }
     }
 
@@ -59,16 +53,12 @@ public class ProductService {
             BigDecimal total = new BigDecimal(0); // provisório
             for (Product prod :purchase) {
                 Product p = productRepository.getProductsById(prod.getProductId());
-                BigDecimal value = new BigDecimal(String.valueOf(p.getPrice().multiply(new BigDecimal(p.getQuantity()))));
+                BigDecimal value = new BigDecimal(String.valueOf(p.getPrice().multiply(new BigDecimal(prod.getQuantity()))));
                 total = total.add(value);
             }
             return total;
-        }catch (IOException e){
+        }catch (IOException e) {
             throw new RuntimeException("Produto nao encontrado:");
-        }
-            return filteredProducts;
-        } catch (IOException e) {
-            throw new RuntimeException("mm");
         }
     }
 
@@ -90,8 +80,6 @@ public class ProductService {
 
     private Boolean resolveQuery(Product p, Product query) {
 
-        System.out.println(query.getName());
-        System.out.println(p.getName());
         Boolean q = (query.getName() == null || query.getName().equals(p.getName())) && // true
                 (query.getCategory() == null || query.getCategory().equals(p.getCategory())) && // true
                 (query.getBrand() == null || query.getBrand().equals(p.getBrand())) &&
