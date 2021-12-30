@@ -3,7 +3,7 @@
   "name" : "Serra de Bancada",
   "category" : "Ferramentas",
   "brand" : "FORTGPRO",
-  "quantity" : 5,
+  "quantity" : 0,
   "price" : 1800,
   "freeShipping" : true,
   "prestige" : "****"
@@ -21,7 +21,7 @@
   "name" : "Soldadora",
   "category" : "Ferramentas",
   "brand" : "Black & Decker",
-  "quantity" : 10,
+  "quantity" : 0,
   "price" : 350,
   "freeShipping" : true,
   "prestige" : "***"
@@ -30,7 +30,7 @@
   "name" : "Chuteira",
   "category" : "Esportes",
   "brand" : "Adidas",
-  "quantity" : 6,
+  "quantity" : 0,
   "price" : 235,
   "freeShipping" : true,
   "prestige" : "*****"
@@ -75,7 +75,7 @@
   "name" : "Camisa",
   "category" : "Roupas",
   "brand" : "Fila",
-  "quantity" : 2,
+  "quantity" : 0,
   "price" : 79,
   "freeShipping" : false,
   "prestige" : "***"

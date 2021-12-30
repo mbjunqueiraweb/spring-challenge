@@ -39,9 +39,4 @@ public class ClientController {
         return ResponseEntity.status(200).body(clientRepository.getClients());
     }
 
-    public Boolean getCliente(String name) {
-       Optional<Boolean> clientExits = clients.stream().map(p -> p.getName().equals(name)).findAny();
-       return  clientExits.orElse(false);
-    }
-
 }

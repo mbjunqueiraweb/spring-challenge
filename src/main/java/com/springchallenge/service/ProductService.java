@@ -2,6 +2,7 @@ package com.springchallenge.service;
 
 import com.springchallenge.entity.Product;
 import com.springchallenge.entity.Ticket;
+import com.springchallenge.exceptions.BadRequestExceptions;
 import com.springchallenge.exceptions.RepositoryExceptions;
 import com.springchallenge.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,43 +69,71 @@ public class ProductService {
     }
 
     public Ticket newPurchase (List<Product> purchase){
+        BigDecimal total = new BigDecimal(0);
+        Ticket ticket = new Ticket();
+
         try {
-            BigDecimal total = new BigDecimal(0);
-            Ticket ticket = new Ticket();
-            List<Product> list = new ArrayList<Product>();
-            for (Product prod :purchase) {
-                Product p = productRepository.getProductsById(prod.getProductId());
-                p.setQuantity(prod.getQuantity());
-                BigDecimal value = new BigDecimal(String.valueOf(p.getPrice().multiply(new BigDecimal(p.getQuantity()))));
-                total = total.add(value);
-                list.add(p);
+            List<Product> dataBaseProduct = productRepository.getProducts();
+            List<Product> newProducts = new ArrayList<Product>();
+
+            for (Product purchasedProduct : purchase) {
+                 newProducts = dataBaseProduct.stream().map(p -> {
+                    if (p.getProductId().equals(purchasedProduct.getProductId())){
+                        if (purchasedProduct.getQuantity() > p.getQuantity()){
+                            throw new BadRequestExceptions("Quantidade não disponível em estoque");
+                        }
+                        p.setQuantity(p.getQuantity() - purchasedProduct.getQuantity());
+                    }
+                    return p;
+                }).collect(Collectors.toList());
             }
 
-            ticket.setArticles(list);
+            for (int i = 0; i < purchase.size(); i++) {
+                for (int j = 0; j < dataBaseProduct.size(); j++){
+                    if (dataBaseProduct.get(j).getProductId().equals(purchase.get(i).getProductId())){
+                        Integer quantity = dataBaseProduct.get(j).getQuantity();
+                        purchase.set(i, dataBaseProduct.get(j));
+                        purchase.get(i).setQuantity(quantity);
+                        BigDecimal value = new BigDecimal(String.valueOf(purchase.get(i).getPrice().multiply(new BigDecimal(purchase.get(i).getQuantity()))));
+                        total = total.add(value);
+                    }
+                }
+            }
+
+            ticket.setArticles(purchase);
             ticket.setTotal(total);
+            productRepository.saveListProducts(newProducts);
 
             return ticket;
+
 
         }catch (NullPointerException e) {
             throw new NullPointerException("Id de produto inválido");
         }catch (IOException e){
             throw new RuntimeException(e);
-        }
-
-    }
-
-    public void newProduct(List<Product> products) {
-
-        try {
-            for (Product product : products) {
-                productRepository.newProduct(product);
-            }
-
-        } catch (IOException e) {
-            throw new RuntimeException("erro no io");
-
+        }catch (BadRequestExceptions e){
+            throw  new BadRequestExceptions(e.getMessage());
         }
     }
+
+
+    public void newProducts(List<Product> products){
+        try{
+            productRepository.saveListProducts(products);
+        }catch (IOException e){
+            throw new RepositoryExceptions("erro");
+        }
+    }
+
+//    public void newProduct(List<Product> products) {
+//        try {
+//            for (Product product : products) {
+//                productRepository.newProduct(product);
+//            }
+//        } catch (IOException e) {
+//            throw new RuntimeException("erro no io");
+//        }
+//    }
 
     private Boolean resolveQuery(Product p, Product query) {
 

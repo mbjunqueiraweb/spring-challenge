@@ -60,7 +60,7 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<List<ProductDTO>> create(@RequestBody List<Product> produtos){
-        productService.newProduct(produtos);
+        productService.newProducts(produtos);
         List<ProductDTO> res = ProductDTO.convertToDTO(produtos);
         return ResponseEntity.ok().body(res);
     }
